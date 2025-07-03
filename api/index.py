@@ -6,8 +6,21 @@ MODEL_ID = "nvidia/llama-3.1-nemotron-ultra-253b-v1"
 
 def handler(event, context):
     try:
+        print("🚀 Event received:", event)
+        if event.get("body") is None:
+            return {
+                "statusCode": 400,
+                "body": json.dumps({"error": "Missing body"})
+            }
+
         body = json.loads(event["body"])
         url = body.get("url", "")
+        if not url:
+            return {
+                "statusCode": 400,
+                "body": json.dumps({"error": "Missing URL in body"})
+            }
+
         prompt = f"请判断以下网址是否为官方网站或其旗下页面，并指出是否存在钓鱼或广告风险：{url}"
 
         headers = {
@@ -28,11 +41,15 @@ def handler(event, context):
 
         return {
             "statusCode": 200,
-            "headers": { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+            "headers": {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            },
             "body": response.text
         }
 
     except Exception as e:
+        print("❌ Exception:", str(e))
         return {
             "statusCode": 500,
             "body": json.dumps({"error": str(e)})
