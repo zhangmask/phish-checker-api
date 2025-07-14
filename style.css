@@ -4,30 +4,47 @@
   padding: 0;
 }
 
+html, body {
+  width: 400px;
+  height: 300px;
+  min-width: 400px;
+  min-height: 300px;
+  max-width: 400px;
+  max-height: 300px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
 body {
   font-family: 'Orbitron', sans-serif;
   background: #0f0c29;
   color: #00ffe7;
-  height: 300px;
-  width: 300px;
+  min-width: 100vw;
+  min-height: 100vh;
+  max-width: 380px;
+  max-height: 500px;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  z-index: 0;
 }
 
 body::before {
   content: "";
   position: absolute;
   top: 0; left: 0;
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100%;
   background: radial-gradient(ellipse at center, rgba(255,255,255,0.1) 0%, transparent 80%),
               url("https://raw.githubusercontent.com/VincentGarreau/particles.js/master/demo/media/particlesbg.png");
   background-size: cover;
   z-index: 0;
   animation: zoom 30s infinite linear;
   opacity: 0.05;
+  pointer-events: none;
 }
 
 body::after {
@@ -43,8 +60,9 @@ body::after {
 
 .container {
   position: relative;
-  width: 90%;
-  height: 90%;
+  width: 100%;
+  max-width: 380px;
+  min-width: 0;
   padding: 15px;
   z-index: 1;
   border-radius: 16px;
@@ -54,7 +72,8 @@ body::after {
   backdrop-filter: blur(10px);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
+  align-items: stretch;
 }
 
 .outer-glow {
@@ -64,18 +83,20 @@ body::after {
 
 .screen {
   width: 100%;
-  height: 100%;
+  min-height: 200px;
   display: none;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   justify-content: flex-start;
+  position: relative;
+  z-index: 1;
 }
 
 .screen.active {
   display: flex;
   opacity: 1;
   transform: translateX(0%);
-  z-index: 1;
+  z-index: 2;
 }
 
 .screen.hidden-left {
@@ -101,6 +122,7 @@ h3 {
 }
 
 textarea {
+  box-sizing: border-box;
   background: #111828dd;
   border: 2px solid #00ffe7;
   color: #00ffe7;
@@ -109,7 +131,6 @@ textarea {
   font-size: 14px;
   resize: none;
   outline: none;
-  width: 100%;
   height: 60px;
   margin-bottom: 12px;
   box-shadow: inset 0 0 12px #00ffe7;
@@ -188,11 +209,23 @@ button:hover {
 }
 
 .mic-btn {
-  position: absolute;
-  top: 80px;
-  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 12px 0 8px 0;
+  width: 100%;
+  height: 44px;
+  font-size: 22px;
+  background: linear-gradient(90deg, #00ffe7, #ff00ff);
+  border-radius: 12px;
   border: none;
-  cursor: pointer;
+  box-shadow: 0 0 10px #00ffe7;
+  transition: transform 0.2s;
+  padding: 0;
+}
+.mic-btn:hover {
+  transform: scale(1.04);
+  box-shadow: 0 0 20px #ff00ff;
 }
 
 @keyframes zoom {
@@ -202,8 +235,6 @@ button:hover {
 
 /* NEW: Consistent spacing and layout perfection */
 .screen > * {
-  max-width: 90%;
-  width: 100%;
   margin-bottom: 12px;
 }
 .screen > *:last-child {
@@ -220,4 +251,57 @@ button:hover {
 
 #backBtn {
   margin-top: 10px;
+}
+
+.container.outer-glow {
+  width: 360px;
+  height: 260px;
+  margin: 0;
+  padding: 0;
+  border-radius: 16px;
+  box-shadow: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.container.outer-glow::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.1) 0%, transparent 80%),
+              url("https://raw.githubusercontent.com/VincentGarreau/particles.js/master/demo/media/particlesbg.png");
+  background-size: cover;
+  z-index: 0;
+  animation: zoom 30s infinite linear;
+  opacity: 0.08;
+  border-radius: 16px;
+  pointer-events: none;
+}
+
+.container.outer-glow > * {
+  position: relative;
+  z-index: 1;
+}
+
+.mic-btn, #checkBtn, textarea {
+  margin-left: 24px;
+  margin-right: 24px;
+  width: calc(100% - 48px);
+  box-sizing: border-box;
+}
+
+#checkBtn {
+  margin-bottom: 0;
+}
+
+#backBtn, #padlock, #confidenceWrapper, #resultText {
+  margin-left: 24px;
+  margin-right: 24px;
+  width: calc(100% - 48px);
+  box-sizing: border-box;
 }
