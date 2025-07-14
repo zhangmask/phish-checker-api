@@ -106,10 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // 🎤 Microphone Input
-  const micBtn = document.createElement('button');
-  micBtn.textContent = '🎤';
-  micBtn.className = 'mic-btn';
-  document.getElementById('inputScreen').insertBefore(micBtn, urlInput);
+  const micBtn = document.querySelector('.mic-btn');
 
   micBtn.addEventListener('click', () => {
     const recognition = new webkitSpeechRecognition();
