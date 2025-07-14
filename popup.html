@@ -8,16 +8,14 @@
 </head>
 <body>
   <div class="container outer-glow">
-
     <!-- Screen 1: Input -->
-    <div class="container">
-      <div class="screen active" id="inputScreen">
-        <h3>🔮 Phishing Site Detection</h3>
-          <textarea id="urlInput" placeholder="Paste the URL..."></textarea>
-        <button id="checkBtn">Check URL</button>
+    <div class="screen active" id="inputScreen">
+      <h3>🔮 Phishing Site Detection</h3>
+      <textarea id="urlInput" placeholder="Paste the URL..."></textarea>
+      <button class="mic-btn" aria-label="Voice Input" type="button">🎤</button>
+      <button id="checkBtn">Check URL</button>
       <div class="spinner" id="spinner"></div>
     </div>
-
     <!-- Screen 2: Result -->
     <div id="resultScreen" class="screen">
       <h3 id="resultTitle">🧠 Analyzing...</h3>
@@ -31,7 +29,6 @@
       <div id="padlock" class="padlock" style="display: none;">🔒 Site is safe</div>
       <button id="backBtn">← Back</button>
     </div>
-
   </div>
   <script src="popup.js"></script>
   <audio id="alertSound" src="beep.mp3" preload="auto"></audio>
